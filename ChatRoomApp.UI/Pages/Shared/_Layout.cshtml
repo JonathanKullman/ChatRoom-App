@@ -6,70 +6,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ChatRoomApp.UI</title>
+    <meta charset="UTF-8">
+    <title>Welcome | Long Winning ChatSite</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <style>
+    </style>
 </head>
+
+
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                
-                <a href="/Index"><img src="~/HomeIconChat.png" height="75" width="75" /></a>
+    <div class="container">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            
+        <div id="logo">
+            <a class="btnlogo mr-4" href="/Index"><img src="~/HomeIconChat.png" height="45" width="45" /></a>
+            <a class="btn1 bg-danger" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;" asp-area="" asp-page="/ChatRoomPages/LogOut">LOG OUT</a>
+        </div>
+        }
+        else
+        {
+    <div id="logo">
+        <a class="btnlogo mr-4" href="/Index"><img src="~/HomeIconChat.png" height="45" width="45" /></a>
+        <a class="btn1 bg-success" asp-area="" asp-page="/ChatRoomPages/Login">LOG IN</a>
+        <a class="btn2" asp-area="" asp-page="/ChatRoomPages/SignUp">REGISTER</a>
+    </div>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @{
-                        if (SignInManager.IsSignedIn(User))
-                        {
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                                </li>
-                            </ul>
+        }
 
-                            <ul class="navbar-nav d-flex justify-content-end">
-                                <li class="nav-item">
-                                    <a class="btn btn-primary" asp-area="" asp-page="/ChatRoomPages/LogOut">Logout</a>
-                                </li>
-                            </ul>
-                        }
-                        else
-                        {
-                            <ul class="navbar-nav d-flex justify-content-end flex-grow-1">
-                                <li class="nav-item">
-                                    <a asp-page="/ChatRoomPages/Login" class="btn btn-primary">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-page="/ChatRoomPages/SignUp" class="btn">Register</a>
-                                </li>
-                            </ul>
-                        }
-                    }
-
-                </div>
+        <div class="navigation-wrapper">
+            <div class="navigation-button">
+                <i class="fa fa-bars"></i>
             </div>
-        </nav>
-    </header>
+            <div class="navigation-menu">
+
+                <ul>
+                    <li class="nav1"><a asp-page="/Index">HOME</a></li>
+                    <li class="nav1"><a asp-page="/Privacy">VIEW ROOMS</a></li>
+
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav1"><a href="">CREATE ROOM</a></li>
+                        <li class="nav1"><a href="">JOIN ROOM</a></li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var navButton = document.querySelector('.navigation-button');
+        var navMenu = document.querySelector('.navigation-menu');
+        var win = window;
+
+        function openMenu(event) {
+
+            navButton.classList.toggle('active');
+            navMenu.classList.toggle('active');
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+        }
+
+        function closeMenu(event) {
+            if (navButton.classList.contains('active')) {
+                navButton.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        }
+        navButton.addEventListener('click', openMenu, false);
+
+        win.addEventListener('click', closeMenu, false);
+
+    </script>
+
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - ChatRoomApp.UI - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -78,3 +102,107 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - ChatRoomApp.UI</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+
+                    <a href="/Index"><img src="~/HomeIconChat.png" height="75" width="75" /></a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        @{
+                            if (SignInManager.IsSignedIn(User))
+                            {
+                                <ul class="navbar-nav flex-grow-1">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                                    </li>
+                                </ul>
+
+                                <ul class="navbar-nav d-flex justify-content-end">
+                                    <li class="nav-item">
+                                        <a class="btn btn-primary" asp-area="" asp-page="/ChatRoomPages/LogOut">Logout</a>
+                                    </li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="navbar-nav d-flex justify-content-end flex-grow-1">
+                                    <li class="nav-item">
+                                        <a asp-page="/ChatRoomPages/Login" class="btn btn-primary">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-page="/ChatRoomPages/SignUp" class="btn">Register</a>
+                                    </li>
+                                </ul>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2021 - ChatRoomApp.UI - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            </div>
+        </footer>
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
+    </html>*@
